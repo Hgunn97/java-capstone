@@ -29,7 +29,7 @@ function SignUp() {
     let [emailid, setEmailId] = useState('');
     let [password, setPassword] = useState('');
     let [repeatPassword, setRepeatPassword] = useState('');
-    let [typeofuser, setTypeofUser] = useState('');
+    let [typeofuser, setTypeofUser] = useState('customer');
     let [error, setError] = useState('');
     let navigate = useNavigate();
     let toast = useToast();
@@ -64,21 +64,14 @@ function SignUp() {
         } else {
             let login = { emailid, password, typeofuser };
             console.log(login);
-            sessionStorage.setItem('user', emailid);
 
-            if (typeofuser === 'admin') {
-                navigate('/admin');
-            } else {
-                navigate('/customer');
-            }
-
-            // axios
-            //     .post('http://localhost:9090/login/signUp', login)
-            //     .then((result) => {
-            //         sessionStorage.setItem('user', emailid);
-            //         navigate('/customer');
-            //     })
-            //     .catch((error) => console.log(error));
+            axios
+                .post('http://localhost:9090/login/signUp', login)
+                .then((result) => {
+                    sessionStorage.setItem('user', emailid);
+                    navigate('/customer');
+                })
+                .catch((error) => console.log(error));
         }
         setEmailId('');
         setPassword('');
@@ -181,34 +174,6 @@ function SignUp() {
                                             {showPassword ? 'Hide' : 'Show'}
                                         </Button>
                                     </InputRightElement>
-                                </InputGroup>
-                            </FormControl>
-                            <FormControl>
-                                <InputGroup>
-                                    <RadioGroup>
-                                        <Stack direction='row'>
-                                            <Radio
-                                                value='admin'
-                                                onChange={(e) =>
-                                                    setTypeofUser(
-                                                        e.target.value
-                                                    )
-                                                }
-                                            >
-                                                Admin
-                                            </Radio>
-                                            <Radio
-                                                value='customer'
-                                                onChange={(e) =>
-                                                    setTypeofUser(
-                                                        e.target.value
-                                                    )
-                                                }
-                                            >
-                                                Customer
-                                            </Radio>
-                                        </Stack>
-                                    </RadioGroup>
                                 </InputGroup>
                             </FormControl>
                             <Button

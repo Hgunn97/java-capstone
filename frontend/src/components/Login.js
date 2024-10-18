@@ -60,26 +60,26 @@ function Login() {
 
             console.log(login);
 
-            sessionStorage.setItem('user', emailid);
-
-            if (typeofuser === 'admin') {
-                navigate('/admin');
-            } else {
-                navigate('/customer');
-            }
-            // axios
-            //     .post('http://localhost:9090/login/signIn', login)
-            //     .then((result) => {
-            //         if (result.data == 'Customer login successfully') {
-            //             sessionStorage.setItem('user', emailid);
-            //             navigate('/customer');
-            //         } else if (result.data == 'Admin login successfully') {
-            //             navigate('/admin');
-            //         } else {
-            //             setError(result.data);
-            //         }
-            //     })
-            //     .catch((error) => console.log(error));
+            axios
+                .post('http://localhost:9090/login/signIn', login)
+                .then((result) => {
+                    if (result.data == 'Customer login successfully') {
+                        sessionStorage.setItem('user', emailid);
+                        navigate('/customer');
+                    } else if (result.data == 'Admin login successfully') {
+                        navigate('/admin');
+                    } else {
+                        toast({
+                            title: 'Error',
+                            description: result.data,
+                            status: 'error',
+                            duration: 5000,
+                            isClosable: true,
+                            position: 'top',
+                        });
+                    }
+                })
+                .catch((error) => console.log(error));
         }
         setEmailId('');
         setPassword('');
