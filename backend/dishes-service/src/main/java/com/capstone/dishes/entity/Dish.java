@@ -1,11 +1,14 @@
-package com.capstone.entity;
+package com.capstone.dishes.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Dish {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int dishId;
     private String dishName;
     private String description;
@@ -16,10 +19,6 @@ public class Dish {
     // Getters and Setters
     public int getDishId() {
         return dishId;
-    }
-
-    public void setDishId(int dishId) {
-        this.dishId = dishId;
     }
 
     public String getDishName() {
@@ -61,4 +60,5 @@ public class Dish {
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
     }
+
 }
