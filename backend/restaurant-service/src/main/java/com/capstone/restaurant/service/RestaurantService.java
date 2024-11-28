@@ -1,9 +1,10 @@
-package com.capstone.service;
+package com.capstone.restaurant.service;
 
-import com.capstone.entity.Restaurant;
-import com.capstone.repository.RestaurantRepository;
+import com.capstone.restaurant.entity.Restaurant;
+import com.capstone.restaurant.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,16 @@ public class RestaurantService {
 
     @Autowired
     RestaurantRepository restaurantRepository;
+
+    @Autowired
+    RestTemplate restTemplate;
+
+    private static final String DISH_SERVICE_URL = "http://localhost:9092/dishes";
+
+    private void deleteDishesByRestaurantId(int restaurantId) {
+        String url = DISH_SERVICE_URL + "/byRestaurant/" + restaurantId;
+        restTemplate.delete(url);
+    }
 
     public List<Restaurant> getRestaurants() {
         List<Restaurant> restaurants = new ArrayList<>();
@@ -43,8 +54,8 @@ public class RestaurantService {
         if(results.isPresent()){
             var updatedRestaurant = results.get();
             updatedRestaurant.setRestaurantName(restaurant.getRestaurantName());
-            updatedRestaurant.setMenuItems(restaurant.getMenuItems());
-            restaurantRepository.save(results.get());
+            restaurantRepository.save(updatedRestaurant);
+
             return "Restaurant updated successfully";
         }
         else {
@@ -56,6 +67,7 @@ public class RestaurantService {
         Optional<Restaurant> results = restaurantRepository.findById(restaurantId);
         if(results.isPresent()){
             restaurantRepository.delete(results.get());
+            deleteDishesByRestaurantId(restaurantId);
             return "Restaurant deleted successfully";
         }
         else {

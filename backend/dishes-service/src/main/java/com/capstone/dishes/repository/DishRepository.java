@@ -1,6 +1,6 @@
-package com.capstone.repository;
+package com.capstone.dishes.repository;
 
-import com.capstone.entity.Dish;
+import com.capstone.dishes.entity.Dish;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

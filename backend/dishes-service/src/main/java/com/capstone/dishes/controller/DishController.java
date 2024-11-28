@@ -1,7 +1,7 @@
-package com.capstone.controller;
+package com.capstone.dishes.controller;
 
-import com.capstone.entity.Dish;
-import com.capstone.service.DishService;
+import com.capstone.dishes.entity.Dish;
+import com.capstone.dishes.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +15,14 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
-    @GetMapping("/restaurant/{restaurantId}")
+    @GetMapping("/{dishId}")
+    public Dish getDishById(@PathVariable int dishId) {
+        return dishService.getDishById(dishId);
+    }
+
+    @GetMapping("/byRestaurant/{restaurantId}")
     public List<Dish> getDishesByRestaurant(@PathVariable int restaurantId) {
-        return dishService.getDishesByRestaurant(restaurantId);
+        return dishService.getDishesByRestaurantId(restaurantId);
     }
 
     @PostMapping
@@ -33,5 +38,10 @@ public class DishController {
     @DeleteMapping("/{dishId}")
     public String deleteDish(@PathVariable int dishId) {
         return dishService.deleteDish(dishId);
+    }
+
+    @DeleteMapping("/byRestaurant/{restaurantId}")
+    public String deleteDishByRestaurant(@PathVariable int restaurantId) {
+        return dishService.deleteDishByRestaurant(restaurantId);
     }
 }

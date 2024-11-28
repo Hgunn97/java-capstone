@@ -1,6 +1,6 @@
-package com.capstone.repository;
+package com.capstone.restaurant.repository;
 
-import com.capstone.entity.Restaurant;
+import com.capstone.restaurant.entity.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
