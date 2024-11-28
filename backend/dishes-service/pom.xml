@@ -8,11 +8,11 @@
         <version>3.3.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.capstone</groupId>
-    <artifactId>restaurant-service</artifactId>
+    <groupId>com.capstrone</groupId>
+    <artifactId>dishes-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>restaurant-service</name>
-    <description>restaurant-service</description>
+    <name>dishes-service</name>
+    <description>dishes-service</description>
     <url/>
     <licenses>
         <license/>
@@ -42,11 +42,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
         <dependency>
